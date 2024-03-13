@@ -82,6 +82,13 @@
                             <a href="#" class="dropdown-item">Admin</a>
                             <a href="pengadaan.php" class="dropdown-item">Pengadaan</a>
                         </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Penerbit</a>
+                            <div class="dropdown-menu bg-transparent border-0">
+
+                                <a href="/penerbit/admin.php" class="dropdown-item">Admin</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -121,8 +128,8 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h6 class="mb-4">Tambah Form</h6>
-                            <a href="admin.php"><button class="btn btn-warning"><i class="fa fa-arrow-left me-2"></i>Back</button></a>
+                            <h4 class="mb-4">Tambah Data</h4>
+                            <a href="admin.php"><button class="btn btn-warning" style="margin-left: 93%;"><i class="fa fa-arrow-left me-2"></i>Back</button></a>
                             <form method="post">
                                 <div class="row">
                                     <div class="col-6">

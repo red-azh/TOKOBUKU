@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="../img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,26 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <?php
+    require "../config.php";
+    $id = $_GET['id'];
+    $query = "SELECT * FROM penerbit";
+    $penerbit = mysqli_query($connect, $query);
+    // Simpan data ke database
+    if (isset($_POST["simpan"])) { // Tombol simpan diklik
+
+        $kode = htmlspecialchars($_POST["kode"]);
+        $nama = htmlspecialchars($_POST["nama"]);
+        $alamat = htmlspecialchars($_POST["alamat"]);
+        $kota = htmlspecialchars($_POST["kota"]);
+        $telepon = htmlspecialchars($_POST["telepon"]);
+
+        $query2 = "UPDATE penerbit SET kode='$kode', nama='$nama' , alamat='$alamat' , kota='$kota', telepon=$telepon WHERE id=$id";
+        mysqli_query($connect, $query2);
+        header("location:admin.php");
+    }
+
+    ?>
 </head>
 
 <body>
@@ -42,7 +62,7 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
@@ -51,11 +71,11 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
+                    <a href="../index.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Home</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Books</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="admin/admin.php" class="dropdown-item">Admin</a>
+                            <a href="../admin/admin.php" class="dropdown-item">Admin</a>
                             <a href="pengadaan.php" class="dropdown-item">Pengadaan</a>
                         </div>
                     </div>
@@ -63,7 +83,6 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Penerbit</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="admin.php" class="dropdown-item">Admin</a>
-                            <a href="pengadaan.php" class="dropdown-item">Pengadaan</a>
                         </div>
                     </div>
                 </div>
@@ -88,7 +107,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Thour</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
@@ -100,118 +119,51 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-
-
-            <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-line fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Today Sale</p>
-                                <h6 class="mb-0">$1234</h6>
-                            </div>
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h4 class="mb-4">Edit Data</h4>
+                            <a href="admin.php"><button class="btn btn-warning" style="margin-left: 93%;"><i class="fa fa-arrow-left me-2"></i>Back</button></a>
+                            <form method="post">
+                                <?php
+                                foreach ($penerbit as $data) {
+                                    if ($data["id"] == $id) {
+                                        # code...
+
+                                ?>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Kode</label>
+                                                    <input type="text" value="<?= $data["kode"] ?>" name="kode" class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Nama</label>
+                                                    <input type="text" value="<?= $data["nama"] ?>" class="form-control" name="nama" id="">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Alamat</label>
+                                                    <input type="text" value="<?= $data["alamat"] ?>" name="alamat" class="form-control" id="">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Kota</label>
+                                                    <input type="text" name="kota" value="<?= $data["kota"] ?>" class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="" class="form-label">Telepon</label>
+                                                    <input type="number" name="telepon" class="form-control" value="<?= $data["telepon"] ?>" id="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                <?php }
+                                } ?>
+                                <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Sale</p>
-                                <h6 class="mb-0">$1234</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-area fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Today Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">$1234</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sale & Revenue End -->
-
-            <!-- Recent Sales Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h3 class="mb-0">Data Penerbit</h3>
-                        <form action="" method="GET">
-                            <div class="row mb-3">
-                                <div class="col-md-9">
-                                    <input class="form-control" type="text" name="search" placeholder="Cari Nama Penerbit">
-                                </div>
-                                <div class="col-md-3">
-                                    <button class="btn btn-primary" type="submit">Cari</button>
-
-                                </div>
-                            </div>
-
-                        </form>
-                    </div>
-                    <?php
-                    // Buat koneksi ke database (sesuaikan dengan informasi database Anda)
-                    require "../config.php";
-
-                    // Query untuk menampilkan semua data buku
-                    $join = "SELECT * FROM penerbit";
-                    $buku = mysqli_query($connect, $join);
-                    // Jika ada pencarian, tambahkan kondisi WHERE
-                    if (isset($_GET['search']) && !empty($_GET['search'])) {
-                        $search = $_GET['search'];
-                        $join .= " WHERE nama_buku LIKE '%$search%'";
-                    }
-
-                    $result = $connect->query($join);
-
-                    if ($result->num_rows > 0) {
-                        echo "<div class='table-responsive'>
-                <table class='table'>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Kode</th>
-                            <th>Nama</th>
-                            <th>Alamat</th>
-                            <th>Kota</th>
-                            <th>Telepon</th>
-                        </tr>
-                    </thead>
-                    <tbody>";
-                        // Tampilkan data buku
-                        $count = 1;
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>
-                    <td>" . $count++ . "</td>
-                    <td>" . $row["kode"] . "</td>
-                    <td>" . $row["nama"] . "</td>
-                    <td>" . $row["alamat"] . "</td>
-                    <td>" . $row["kota"] . "</td>
-                    <td>" . $row["telepon"] . "</td>
-                </tr>";
-                        }
-                        echo "</tbody>
-            </table>
-            </div>";
-                    } else {
-                        echo "Tidak ada hasil";
-                    }
-                    $connect->close();
-                    ?>
                 </div>
             </div>
             <!-- Footer Start -->

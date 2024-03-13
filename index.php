@@ -70,10 +70,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Penerbit</a>
                         <div class="dropdown-menu bg-transparent border-0">
-
-                            <a href="penerbit/indexPenerbit.php" class="dropdown-item">index</a>
                             <a href="penerbit/admin.php" class="dropdown-item">Admin</a>
-                            <a href="pengadaan.php" class="dropdown-item">Pengadaan</a>
                         </div>
                     </div>
                 </div>
