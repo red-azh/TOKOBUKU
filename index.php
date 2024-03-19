@@ -117,7 +117,10 @@
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Today Sale</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <?php
+                                $count = "SELECT COUNT(nama_buku) FROM buku";
+                                ?>
+                                <h6 class="mb-0"><?= count(["nama_buku"]) ?></h6>
                             </div>
                         </div>
                     </div>

@@ -163,7 +163,6 @@
                                 </div>
                                 <div class="col-md-3">
                                     <button class="btn btn-primary" type="submit">Cari</button>
-
                                 </div>
                             </div>
 
@@ -176,10 +175,10 @@
                     // Query untuk menampilkan semua data buku
                     $join = "SELECT buku.*, penerbit.nama FROM buku INNER JOIN penerbit ON buku.penerbit = penerbit.id ORDER BY buku.stok ASC";
                     $buku = mysqli_query($connect, $join);
-                    // Jika ada pencarian, tambahkan kondisi WHERE
+
                     if (isset($_GET['search']) && !empty($_GET['search'])) {
                         $search = $_GET['search'];
-                        $join .= " WHERE nama_buku LIKE '%$search%'";
+                        $join = "WHERE nama_buku LIKE '%$search%'";
                     }
 
                     $result = $connect->query($join);

@@ -128,7 +128,6 @@
                                 foreach ($buku as $data) {
                                     if ($data['id'] == $id) {
                                         # code...
-
                                 ?>
 
                                         <div class="row">
